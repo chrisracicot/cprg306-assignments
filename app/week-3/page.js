@@ -1,13 +1,17 @@
 import ItemList from "./item-list";
 
-export default function Page({ props }) {
+export default function Page(props) {
   return (
-    <main className="m-6">
-      <h1 className="text-cyan-400 text-3xl font-extrabold">Shopping List</h1>
+    <div className="bg-violet-950 min-h-screen">
+      <main className="p-4 bg-violet-950 min-h-screen">
+        <h1 className="text-cyan-300 text-3xl font-extrabold pl-4">
+          Shopping List
+        </h1>
 
-      <header>
-        <ItemList />
-      </header>
-    </main>
+        <header>
+          <ItemList />
+        </header>
+      </main>
+    </div>
   );
 }

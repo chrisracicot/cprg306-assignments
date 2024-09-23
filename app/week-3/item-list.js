@@ -56,7 +56,7 @@ export default function ItemList(props) {
   };
 
   const item10 = {
-    name: "paper towels, 6 pack",
+    name: "paper towels, 6 pack 🧻",
     quantity: 1,
     category: "household",
   };
@@ -75,34 +75,103 @@ export default function ItemList(props) {
 
   return (
     <main>
-      <div className="max-w-sm p-2 pl-4 bg-white m-3 text-black">
-        <Item
-          name={item1.name}
-          quantity={item1.quantity}
-          category={item1.category}
-        />
-      </div>
+      <section className="pt-2">
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item1.name}
+            quantity={item1.quantity}
+            category={item1.category}
+          />
+        </div>
 
-      <div className="max-w-sm p-2 pl-4 bg-orange-500 m-3 text-black">
-        <Item
-          name={item2.name}
-          quantity={item2.quantity}
-          category={item2.category}
-        />
-      </div>
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item2.name}
+            quantity={item2.quantity}
+            category={item2.category}
+          />
+        </div>
 
-      {/* <Item item1={item1.name} />
-      <Item props={item2.name} />
-      <Item props={item3} />
-      <Item props={item4} />
-      <Item props={item5} />
-      <Item props={item6} />
-      <Item props={item7} />
-      <Item props={item8} />
-      <Item props={item9} />
-      <Item props={item10} />
-      <Item props={item11} />
-      <Item props={item12} />  */}
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item3.name}
+            quantity={item3.quantity}
+            category={item3.category}
+          />
+        </div>
+
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item4.name}
+            quantity={item4.quantity}
+            category={item4.category}
+          />
+        </div>
+
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item5.name}
+            quantity={item5.quantity}
+            category={item5.category}
+          />
+        </div>
+
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item6.name}
+            quantity={item6.quantity}
+            category={item6.category}
+          />
+        </div>
+
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item7.name}
+            quantity={item7.quantity}
+            category={item7.category}
+          />
+        </div>
+
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item8.name}
+            quantity={item8.quantity}
+            category={item8.category}
+          />
+        </div>
+
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item9.name}
+            quantity={item9.quantity}
+            category={item9.category}
+          />
+        </div>
+
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item10.name}
+            quantity={item10.quantity}
+            category={item10.category}
+          />
+        </div>
+
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item11.name}
+            quantity={item11.quantity}
+            category={item11.category}
+          />
+        </div>
+
+        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
+          <Item
+            name={item12.name}
+            quantity={item12.quantity}
+            category={item12.category}
+          />
+        </div>
+      </section>
     </main>
   );
 }
