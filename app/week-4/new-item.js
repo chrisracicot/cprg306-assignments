@@ -14,8 +14,12 @@ export default function NewItem() {
     <div>
       <p>Amount: {quantity}</p>
 
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
+      <button disabled={increment > 20} onClick={increment}>
+        Increment
+      </button>
+      <button disabled={decrement <= 1} onClick={decrement}>
+        Decrement
+      </button>
     </div>
   );
 }
