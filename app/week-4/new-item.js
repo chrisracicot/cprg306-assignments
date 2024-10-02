@@ -23,8 +23,8 @@ export default function NewItem() {
       <button
         className={`w-40 p-2 pl-4 m-3 rounded-2xl text-black ${
           quantity >= 20
-            ? "bg-gray-400 border-solid border-2 border-gray-500"
-            : "bg-green-400 border-solid border-2 border-green-500" // Default
+            ? "bg-gray-400 border-solid border-2 border-gray-300"
+            : "bg-green-500 border-solid border-2 border-green-300 hover:bg-green-400" // Default
         }`}
         disabled={quantity >= 20}
         onClick={increment}
@@ -34,8 +34,8 @@ export default function NewItem() {
       <button
         className={`w-40 p-2 pl-4 m-3 rounded-2xl text-black ${
           quantity <= 1
-            ? "bg-gray-400 border-solid border-2 border-gray-500"
-            : "bg-green-400 border-solid border-2 border-green-500"
+            ? "bg-gray-400 border-solid border-2 border-gray-300"
+            : "bg-green-500 border-solid border-2 border-green-300 hover:bg-green-400" // Default
         }`}
         disabled={quantity <= 1}
         onClick={() => setCount(quantity - 1)}
