@@ -18,7 +18,6 @@ export default function NewItem() {
     };
 
     // Print to the web console
-
     console.log(item); // Directly log the item object
 
     // Popup alert
@@ -27,7 +26,6 @@ export default function NewItem() {
     );
 
     // Reset the form
-
     setName("");
     setCategory("produce");
     setCount(1);
@@ -40,48 +38,57 @@ export default function NewItem() {
   };
 
   return (
-    <div className="bg-orange-400 rounded-2xl p-4 border-double border-orange-300 border-4">
-      <p className="text-black text-center pb-3 font-bold text-2xl">
-        Amount: {quantity}
-      </p>
-      <button
-        className={`w-40 p-2 pl-4 m-3 rounded-2xl text-black ${
-          quantity >= 20
-            ? "bg-gray-400 border-solid border-2 border-gray-300"
-            : "bg-green-500 border-solid border-2 border-green-300 hover:bg-green-400"
-        }`}
-        disabled={quantity >= 20}
-        onClick={increment}
-      >
-        Increment
-      </button>
-      <button
-        className={`w-40 p-2 pl-4 m-3 rounded-2xl text-black ${
-          quantity <= 1
-            ? "bg-gray-400 border-solid border-2 border-gray-300"
-            : "bg-green-500 border-solid border-2 border-green-300 hover:bg-green-400"
-        }`}
-        disabled={quantity <= 1}
-        onClick={() => setCount(quantity - 1)}
-      >
-        Decrement
-      </button>
-      <form onSubmit={handleSubmit}>
-        <label className="text-black">
-          Name:
-          <input
-            required
-            className="text-black bg-white"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <br />
-        <label className="text-black">
-          Category:
+    <div className="bg-orange-400 rounded-2xl p-4 m-6 border-double border-orange-300 border-4">
+      {/* Shopping List Paragraph in its own flex box */}
+      <div className="flex justify-center mb-4">
+        <p className="text-black text-center font-bold text-2xl">
+          Shopping List
+        </p>
+      </div>
+
+      {/* Quantity and Buttons */}
+      <div className="flex items-center justify-center space-x-4 mb-4">
+        <button
+          className={`w-10 h-7 flex items-center justify-center rounded-lg border-solid border-2 text-black ${
+            quantity <= 1
+              ? "bg-gray-400 border-gray-300"
+              : "bg-green-500 border-green-300 hover:bg-green-400"
+          }`}
+          disabled={quantity <= 1}
+          onClick={() => setCount(quantity - 1)}
+        >
+          -
+        </button>
+
+        <p className="text-black text-center font-bold text-xl">{quantity}</p>
+
+        <button
+          className={`w-10 h-7 flex items-center justify-center rounded-lg border-solid border-2 text-black ${
+            quantity >= 20
+              ? "bg-gray-400 border-gray-300"
+              : "bg-green-500 border-green-300 hover:bg-green-400"
+          }`}
+          disabled={quantity >= 20}
+          onClick={increment}
+        >
+          +
+        </button>
+
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className="w-28 h-7 flex items-center justify-center text-black text-sm p-2 rounded bg-blue-500 border-blue-300 hover:bg-blue-400"
+        >
+          Add to cart
+        </button>
+      </div>
+
+      <form className="mt-4">
+        {/* Category Label and Select in its own flex box */}
+        <div className="flex items-center justify-center mb-4">
+          <label className="text-black mr-2">Category:</label>
           <select
-            className="text-black bg-white"
+            className="text-black bg-white rounded pl-1 h-7"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -93,14 +100,19 @@ export default function NewItem() {
             <option value="bakery">Bakery</option>
             <option value="household">Household</option>
           </select>
-        </label>
-        <br />
-        <button
-          type="submit"
-          className="bg-blue-500 text-black p-2 mt-3 rounded"
-        >
-          Add to cart
-        </button>
+        </div>
+
+        {/* Name Label and Input in its own flex box */}
+        <div className="flex items-center justify-center mb-4">
+          <label className="text-black mr-2">Name:</label>
+          <input
+            required
+            className="text-black bg-white rounded pl-1 h-7"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
       </form>
     </div>
   );
