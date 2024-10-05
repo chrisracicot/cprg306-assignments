@@ -8,7 +8,7 @@ export default function NewItem() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("produce");
 
-  const submitFunction = (submit) => {
+  const handleSubmit = (submit) => {
     submit.preventDefault();
 
     const item = {
@@ -18,13 +18,19 @@ export default function NewItem() {
     };
 
     // Print to the web console
-    console.log("Item submitted to console:");
+
     console.log(item); // Directly log the item object
 
     // Popup alert
     alert(
       `Item submitted: ${item.name}, Category: ${item.category}, Quantity: ${item.quantity}`
     );
+
+    // Reset the form
+
+    setName("");
+    setCategory("produce");
+    setCount(1);
   };
 
   const increment = () => {
@@ -60,10 +66,11 @@ export default function NewItem() {
       >
         Decrement
       </button>
-      <form onSubmit={submitFunction}>
+      <form onSubmit={handleSubmit}>
         <label className="text-black">
           Name:
           <input
+            required
             className="text-black bg-white"
             type="text"
             value={name}
@@ -81,6 +88,10 @@ export default function NewItem() {
             <option value="produce">Produce</option>
             <option value="dairy">Dairy</option>
             <option value="meat">Meat</option>
+            <option value="dry">Dry Goods</option>
+            <option value="canned">Canned Goods</option>
+            <option value="bakery">Bakery</option>
+            <option value="household">Household</option>
           </select>
         </label>
         <br />
