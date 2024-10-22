@@ -1,6 +1,6 @@
 import ItemList from "./item-list";
 
-export default function Page() {
+export default function Page(props) {
   return (
     <div className="bg-violet-950 min-h-screen">
       <main className="p-4 bg-violet-950 min-h-screen">

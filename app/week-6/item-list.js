@@ -1,176 +1,99 @@
+"use client";
+
+import { useState } from "react";
 import Item from "./item";
+import itemsData from "./items.json";
 
-export default function ItemList(props) {
-  const item1 = {
-    name: "milk, 4 L 🥛",
-    quantity: 1,
-    category: "dairy",
-  };
+export default function ItemList() {
+  const [sortBy, setSortBy] = useState("name"); // Sorting by name initially
 
-  const item2 = {
-    name: "bread 🍞",
-    quantity: 2,
-    category: "bakery",
-  };
+  // Sorting and grouping logic
+  const sortedItems = [...itemsData].sort((a, b) => {
+    if (sortBy === "name") {
+      return a.name.localeCompare(b.name);
+    }
+    if (sortBy === "category") {
+      return a.category.localeCompare(b.category);
+    }
+  });
 
-  const item3 = {
-    name: "eggs, dozen 🥚",
-    quantity: 2,
-    category: "dairy",
-  };
-
-  const item4 = {
-    name: "bananas 🍌",
-    quantity: 6,
-    category: "produce",
-  };
-
-  const item5 = {
-    name: "broccoli 🥦",
-    quantity: 3,
-    category: "produce",
-  };
-
-  const item6 = {
-    name: "chicken breasts, 1 kg 🍗",
-    quantity: 1,
-    category: "meat",
-  };
-
-  const item7 = {
-    name: "pasta sauce 🍝",
-    quantity: 3,
-    category: "canned goods",
-  };
-
-  const item8 = {
-    name: "spaghetti, 454 g 🍝",
-    quantity: 2,
-    category: "dry goods",
-  };
-
-  const item9 = {
-    name: "toilet paper, 12 pack 🧻",
-    quantity: 1,
-    category: "household",
-  };
-
-  const item10 = {
-    name: "paper towels, 6 pack 🧻",
-    quantity: 1,
-    category: "household",
-  };
-
-  const item11 = {
-    name: "dish soap 🍽️",
-    quantity: 1,
-    category: "household",
-  };
-
-  const item12 = {
-    name: "hand soap 🧼",
-    quantity: 4,
-    category: "household",
-  };
+  const groupedItems = itemsData.reduce((acc, item) => {
+    if (!acc[item.category]) {
+      acc[item.category] = [];
+    }
+    acc[item.category].push(item);
+    return acc;
+  }, {});
 
   return (
     <main>
       <section className="pt-2">
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item1.name}
-            quantity={item1.quantity}
-            category={item1.category}
-          />
+        {/* Sort Buttons */}
+        <div className="flex justify-center space-x-4 mb-4 text-black">
+          <button
+            onClick={() => setSortBy("name")}
+            className={`p-2 rounded-xl ${
+              sortBy === "name" ? "bg-blue-500 text-white" : "bg-gray-300"
+            }`}
+          >
+            Sort by Name
+          </button>
+          <button
+            onClick={() => setSortBy("category")}
+            className={`p-2 rounded-xl ${
+              sortBy === "category" ? "bg-blue-500 text-white" : "bg-gray-300"
+            }`}
+          >
+            Sort by Category
+          </button>
+          <button
+            onClick={() => setSortBy("category-group")}
+            className={`p-2 rounded-xl ${
+              sortBy === "category-group"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-300"
+            }`}
+          >
+            Group by Category
+          </button>
         </div>
 
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item2.name}
-            quantity={item2.quantity}
-            category={item2.category}
-          />
-        </div>
+        {/* Conditional rendering based on sorting method */}
+        {sortBy !== "category-group" &&
+          sortedItems.map((item) => (
+            <div
+              key={item.id}
+              className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black"
+            >
+              <Item
+                name={item.name}
+                quantity={item.quantity}
+                category={item.category}
+              />
+            </div>
+          ))}
 
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item3.name}
-            quantity={item3.quantity}
-            category={item3.category}
-          />
-        </div>
-
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item4.name}
-            quantity={item4.quantity}
-            category={item4.category}
-          />
-        </div>
-
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item5.name}
-            quantity={item5.quantity}
-            category={item5.category}
-          />
-        </div>
-
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item6.name}
-            quantity={item6.quantity}
-            category={item6.category}
-          />
-        </div>
-
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item7.name}
-            quantity={item7.quantity}
-            category={item7.category}
-          />
-        </div>
-
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item8.name}
-            quantity={item8.quantity}
-            category={item8.category}
-          />
-        </div>
-
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item9.name}
-            quantity={item9.quantity}
-            category={item9.category}
-          />
-        </div>
-
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item10.name}
-            quantity={item10.quantity}
-            category={item10.category}
-          />
-        </div>
-
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item11.name}
-            quantity={item11.quantity}
-            category={item11.category}
-          />
-        </div>
-
-        <div className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black">
-          <Item
-            name={item12.name}
-            quantity={item12.quantity}
-            category={item12.category}
-          />
-        </div>
+        {/* Grouped by category view */}
+        {sortBy === "category-group" &&
+          Object.keys(groupedItems).map((category) => (
+            <div key={category}>
+              <h2 className="capitalize text-xl font-bold text-black bg-gray-200 p-2 rounded-lg mt-4">
+                {category}
+              </h2>
+              {groupedItems[category].map((item) => (
+                <div
+                  key={item.id}
+                  className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black"
+                >
+                  <Item
+                    name={item.name}
+                    quantity={item.quantity}
+                    category={item.category}
+                  />
+                </div>
+              ))}
+            </div>
+          ))}
       </section>
     </main>
   );
