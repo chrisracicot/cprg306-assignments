@@ -4,6 +4,17 @@ import { useState } from "react";
 import Item from "./item";
 import itemsData from "./items.json";
 
+// Define unique colors for each category
+const categoryColors = {
+  Dairy: "bg-blue-300 hover:bg-blue-200",
+  Bakery: "bg-yellow-300 hover:bg-yellow-200",
+  Produce: "bg-green-300 hover:bg-green-200",
+  Meat: "bg-red-300 hover:bg-red-200",
+  "Canned Goods": "bg-purple-300 hover:bg-purple-200",
+  "Dry Goods": "bg-pink-300 hover:bg-pink-200",
+  Household: "bg-teal-300 hover:bg-teal-200",
+};
+
 export default function ItemList() {
   const [sortBy, setSortBy] = useState("name"); // Sorting by name initially
 
@@ -32,7 +43,7 @@ export default function ItemList() {
         <div className="flex justify-center space-x-4 mb-4 text-black">
           <button
             onClick={() => setSortBy("name")}
-            className={`p-2 rounded-xl ${
+            className={`p-2 rounded-lg ${
               sortBy === "name" ? "bg-blue-500 text-white" : "bg-gray-300"
             }`}
           >
@@ -40,7 +51,7 @@ export default function ItemList() {
           </button>
           <button
             onClick={() => setSortBy("category")}
-            className={`p-2 rounded-xl ${
+            className={`p-2 rounded-lg ${
               sortBy === "category" ? "bg-blue-500 text-white" : "bg-gray-300"
             }`}
           >
@@ -48,7 +59,7 @@ export default function ItemList() {
           </button>
           <button
             onClick={() => setSortBy("category-group")}
-            className={`p-2 rounded-xl ${
+            className={`p-2 rounded-lg ${
               sortBy === "category-group"
                 ? "bg-blue-500 text-white"
                 : "bg-gray-300"
@@ -63,7 +74,10 @@ export default function ItemList() {
           sortedItems.map((item) => (
             <div
               key={item.id}
-              className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black"
+              className={`max-w-[256px] w-full p-2 pl-4 m-3 rounded-lg text-black ${
+                categoryColors[item.category] ||
+                "bg-orange-500 hover:bg-orange-300"
+              }`}
             >
               <Item
                 name={item.name}
@@ -77,13 +91,17 @@ export default function ItemList() {
         {sortBy === "category-group" &&
           Object.keys(groupedItems).map((category) => (
             <div key={category}>
-              <h2 className="capitalize text-xl font-bold text-black bg-gray-200 p-2 rounded-lg mt-4">
+              {/* Shortened width of the category header (grey bar) */}
+              <h2 className="max-w-[384px] w-full capitalize text-xl font-bold text-black bg-gray-200 p-1 pl-2 rounded-lg mt-4">
                 {category}
               </h2>
               {groupedItems[category].map((item) => (
                 <div
                   key={item.id}
-                  className="max-w-sm p-2 pl-4 bg-orange-500 hover:bg-orange-300 m-3 rounded-2xl text-black"
+                  className={`max-w-[256px] w-full p-2 pl-4 m-3 rounded-lg text-black ${
+                    categoryColors[item.category] ||
+                    "bg-orange-500 hover:bg-orange-300"
+                  }`}
                 >
                   <Item
                     name={item.name}

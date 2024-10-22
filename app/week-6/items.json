@@ -14,7 +14,7 @@
   {
     "id": "3h2KJH3k2j3H1k2J3",
     "name": "Eggs, Dozen 🥚",
-    "quantity": 2,
+    "quantity": 1,
     "category": "Dairy"
   },
   {
@@ -26,7 +26,7 @@
   {
     "id": "5H1h1H2KJH3k2j3H",
     "name": "Broccoli 🥦",
-    "quantity": 3,
+    "quantity": 1,
     "category": "Produce"
   },
   {
@@ -38,7 +38,7 @@
   {
     "id": "7gkHG31h1H2KJH3k",
     "name": "Pasta Sauce 🍅",
-    "quantity": 3,
+    "quantity": 2,
     "category": "Canned Goods"
   },
   {
@@ -62,7 +62,7 @@
   {
     "id": "11k2J3K1H2GJKH12",
     "name": "Dish Soap 🍽️",
-    "quantity": 1,
+    "quantity": 2,
     "category": "Household"
   },
   {
