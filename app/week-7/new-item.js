@@ -1,9 +1,9 @@
-"use client";
+// "use client";
 // indicates tells Next.js to run this code on the client side
 
 import { useState } from "react";
 
-export default function NewItem() {
+export default function NewItem({ onAddItem }) {
   const [quantity, setCount] = useState(1);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("produce");
@@ -11,21 +11,17 @@ export default function NewItem() {
   const handleSubmit = (submit) => {
     submit.preventDefault();
 
-    const item = {
+    const newItem = {
+      id: Math.random().toString(36).substring(2, 9), // Generate random string for ID
       name: name,
       category: category,
       quantity: quantity,
     };
 
-    // Print to the web console
-    console.log(item); // Directly log the item object
+    // Call the onAddItem prop and pass the new item
+    onAddItem(newItem);
 
-    // Popup alert
-    alert(
-      `Item submitted: ${item.name}, Category: ${item.category}, Quantity: ${item.quantity}`
-    );
-
-    // Reset the form
+    // Reset the form after submission
     setName("");
     setCategory("produce");
     setCount(1);
