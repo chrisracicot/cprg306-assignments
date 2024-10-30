@@ -3,40 +3,41 @@
 import { useState, useEffect } from "react";
 
 export default function MealIdeas({ ingredient }) {
-  // State variable to hold the list of meal ideas
   const [meals, setMeals] = useState([]);
 
   // Function to fetch meal ideas from TheMealDB API
   const fetchMealIdeas = async (ingredient) => {
     try {
-      const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+      // Loop through ingredient forms and fetch recipes for each
+      const fetchRequests = ingredient.map(async (ing) => {
+        const response = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ing}`
+        );
+        if (!response.ok) {
+          throw new Error(`Failed to fetch meals for ${ing}`);
+        }
+        const data = await response.json();
+        return data.meals || [];
+      });
+
+      const results = await Promise.all(fetchRequests);
+      // Flatten and remove duplicates from results
+      const uniqueMeals = Array.from(
+        new Map(results.flat().map((meal) => [meal.idMeal, meal])).values()
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch meal ideas");
-      }
-      const data = await response.json();
-      return data.meals || []; // Return meals if available, or an empty array
+      setMeals(uniqueMeals);
     } catch (error) {
       console.error("Error fetching meal ideas:", error);
-      return []; // Return an empty array on error
+      setMeals([]);
     }
   };
 
-  // Define loadMealIdeas function to fetch meals and update the state
-  const loadMealIdeas = async () => {
-    const mealIdeas = await fetchMealIdeas(ingredient);
-    setMeals(mealIdeas);
-  };
-
-  // useEffect to load meal ideas when the ingredient changes
   useEffect(() => {
-    if (ingredient) {
-      loadMealIdeas();
+    if (ingredient && ingredient.length > 0) {
+      fetchMealIdeas(ingredient);
     }
   }, [ingredient]);
 
-  // Render method
   return (
     <div className="meal-ideas bg-gray-100 p-4 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-center">Meal Ideas</h2>
@@ -59,7 +60,7 @@ export default function MealIdeas({ ingredient }) {
         </ul>
       ) : (
         <p className="text-center text-gray-500">
-          No meal ideas found for "{ingredient}".
+          No meal ideas found for "{ingredient.join(", ")}".
         </p>
       )}
     </div>

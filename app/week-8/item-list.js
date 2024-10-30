@@ -14,7 +14,7 @@ const categoryColors = {
   Household: "bg-teal-300 hover:bg-teal-200",
 };
 
-export default function ItemList({ items }) {
+export default function ItemList({ items, onItemSelect }) {
   const [sortBy, setSortBy] = useState("name"); // Sorting by name initially
 
   // Sorting logic with immutability (using a copy of the items prop)
@@ -78,11 +78,13 @@ export default function ItemList({ items }) {
                 categoryColors[item.category] ||
                 "bg-orange-500 hover:bg-orange-300"
               }`}
+              onClick={() => onItemSelect(item)} // Trigger onItemSelect with the clicked item
             >
               <Item
                 name={item.name}
                 quantity={item.quantity}
                 category={item.category}
+                onSelect={() => onItemSelect(item)} // Pass onSelect to Item
               />
             </div>
           ))}
@@ -102,11 +104,13 @@ export default function ItemList({ items }) {
                     categoryColors[item.category] ||
                     "bg-orange-500 hover:bg-orange-300"
                   }`}
+                  onClick={() => onItemSelect(item)} // Trigger onItemSelect with the clicked item
                 >
                   <Item
                     name={item.name}
                     quantity={item.quantity}
                     category={item.category}
+                    onSelect={() => onItemSelect(item)} // Pass onSelect to Item
                   />
                 </div>
               ))}
