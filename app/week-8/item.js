@@ -11,7 +11,10 @@ export default function Item(props) {
   return (
     <main>
       <ul>
-        <li>
+        <li
+          onClick={() => props.onSelect && props.onSelect(props.name)} // Trigger onSelect if provided
+          className="cursor-pointer" // Adds a pointer cursor to indicate clickability
+        >
           <h2 className="font-bold">
             {/* Display the item name without the emoji */}
             {nameWithoutEmoji}
