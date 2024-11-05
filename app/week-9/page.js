@@ -1,16 +1,54 @@
-// Import the useUserAuth hook
+"use client";
+
+console.log("page.js file is loaded");
+
+// week-9/page.js
+import React from "react";
+import Layout from "./layout";
 import { useUserAuth } from "./_utils/auth-context";
 
-// Use the useUserAuth hook to get the user object and the login and logout functions
-const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+console.log("useUserAuth:", useUserAuth); // Debugging step to check if useUserAuth is a function
 
-// Sign in to Firebase with GitHub authentication
-await gitHubSignIn();
+const Page = () => {
+  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
-// Sign out of Firebase
-await firebaseSignOut();
+  const handleLogin = async () => {
+    try {
+      await gitHubSignIn();
+    } catch (error) {
+      console.error("Login failed", error);
+    }
+  };
 
-// Display some of the user's information
-<p>
-  Welcome, {user.displayName} ({user.email})
-</p>;
+  const handleLogout = async () => {
+    try {
+      await firebaseSignOut();
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
+  const goToShoppingList = () => {
+    window.location.href = "./week-9/shopping-list";
+  };
+
+  return (
+    <Layout>
+      <div>
+        {!user ? (
+          <button onClick={handleLogin}>Login with GitHub</button>
+        ) : (
+          <div>
+            <p>
+              Welcome, {user.displayName} ({user.email})
+            </p>
+            <button onClick={handleLogout}>Logout</button>
+            <button onClick={goToShoppingList}>Go to Shopping List</button>
+          </div>
+        )}
+      </div>
+    </Layout>
+  );
+};
+
+export default Page;

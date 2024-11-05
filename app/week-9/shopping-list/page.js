@@ -1,14 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUserAuth } from "../_utils/auth-context";
+import { useRouter } from "next/navigation";
 import ItemList from "./item-list";
 import NewItem from "./new-item";
 import MealIdeas from "./meal-ideas";
 import itemsData from "./items.json";
 
 export default function Page() {
+  const { user } = useUserAuth();
+  const router = useRouter();
+
+  // Track whether we are checking authentication status
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [items, setItems] = useState(itemsData);
-  const [selectedItemName, setSelectedItemName] = useState(null); // State for the selected item
+  const [selectedItemName, setSelectedItemName] = useState(null);
 
   const categoryDisplayNames = {
     produce: "Produce",
@@ -20,6 +27,24 @@ export default function Page() {
     household: "Household",
   };
 
+  useEffect(() => {
+    // Set a delay to allow Firebase authentication state to load fully
+    const authCheckTimeout = setTimeout(() => {
+      if (user === null) {
+        // If user is confirmed as unauthenticated, redirect to the landing page
+        router.push("/week-9");
+      } else {
+        // Authentication has been fully checked, stop the loading state
+        setIsCheckingAuth(false);
+      }
+    }, 500); // Adjust the delay if necessary
+
+    return () => clearTimeout(authCheckTimeout);
+  }, [user, router]);
+
+  // While checking auth status, render nothing to prevent premature redirects
+  if (isCheckingAuth) return null;
+
   const handleAddItem = (name, quantity, categoryKey) => {
     const newItem = {
       id: items.length + 1,
@@ -30,19 +55,17 @@ export default function Page() {
     setItems([...items, newItem]);
   };
 
-  // Event handler to handle item selection and clean up the item name for the MealDB API
   const handleItemSelect = (item) => {
     const cleanedName = item.name
       .split(",")[0]
       .replace(/[\p{Emoji}\p{Extended_Pictographic}]/gu, "")
       .trim();
 
-    // Set the singular and plural forms if the ingredient ends with "s"
     const ingredientForms = cleanedName.endsWith("s")
       ? [cleanedName, cleanedName.slice(0, -1)]
       : [cleanedName];
 
-    setSelectedItemName(ingredientForms); // Set array of forms in state
+    setSelectedItemName(ingredientForms);
   };
 
   const sortedItems = [...items].sort((a, b) => {

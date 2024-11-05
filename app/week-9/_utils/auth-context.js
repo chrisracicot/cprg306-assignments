@@ -1,4 +1,5 @@
 "use client";
+console.log("auth-context.js file is loaded");
 
 import { useContext, createContext, useState, useEffect } from "react";
 import {
