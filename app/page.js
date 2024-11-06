@@ -21,18 +21,6 @@ export default function Page() {
       <Link href="http://localhost:3000/week-9">Week 9</Link>
       <br />
       <Link href="http://localhost:3000/week-10">Week 10</Link>
-      <br />
-      <Link href="http://localhost:3000/week-11">Week 11</Link>
-      <br />
-      <Link href="http://localhost:3000/week-11">Week 12</Link>
-      <br />
-      <Link href="http://localhost:3000/week-11">Week 13</Link>
-      <br />
-      <Link href="http://localhost:3000/week-11">Week 14</Link>
-      <br />
-      <Link href="http://localhost:3000/week-11">Week 15</Link>
-      <br />
-      <Link href="http://localhost:3000/week-11">Week 16</Link>
     </main>
   );
 }
