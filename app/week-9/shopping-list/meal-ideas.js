@@ -60,11 +60,11 @@ export default function MealIdeas({ ingredient }) {
         </ul>
       ) : (
         <p className="text-center text-black">
-          No meal ideas found for "
+          No meal ideas found for &quot;
           {ingredient && ingredient.length > 0
             ? ingredient.join(", ")
             : "the given ingredient(s)"}
-          ".
+          &quot;.
         </p>
       )}
     </div>
