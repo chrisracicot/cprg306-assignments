@@ -18,7 +18,9 @@ export default function Page() {
       <br />
       <Link href="http://localhost:3000/week-8">Week 8</Link>
       <br />
-      <Link href="http://localhost:3000/week-9">Week 9</Link>
+      <Link href="https://cprg306-assignments-sandy-six.vercel.app/week-9">
+        Week 9
+      </Link>
       <br />
       <Link href="http://localhost:3000/week-10">Week 10</Link>
     </main>
