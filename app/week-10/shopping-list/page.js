@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import ItemList from "./item-list";
 import NewItem from "./new-item";
 import MealIdeas from "./meal-ideas";
-import itemsData from "./items.json";
+// import itemsData from "./items.json";
+import { getItems, addItem } from "../_services/shopping-list-service";
 
 export default function Page() {
   const { user } = useUserAuth();
@@ -14,7 +15,7 @@ export default function Page() {
 
   // Track whether we are checking authentication status
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-  const [items, setItems] = useState(itemsData);
+  const [items, setItems] = useState([]);
   const [selectedItemName, setSelectedItemName] = useState(null);
 
   const categoryDisplayNames = {
@@ -27,15 +28,29 @@ export default function Page() {
     household: "Household",
   };
 
+  // Function to load items from Firestore
+  const loadItems = async () => {
+    try {
+      if (user?.uid) {
+        const shoppingList = await getItems(user.uid);
+        setItems(shoppingList);
+      }
+    } catch (error) {
+      console.error("Error loading items:", error);
+    }
+  };
+
   useEffect(() => {
     // Set a delay to allow Firebase authentication state to load fully
     const authCheckTimeout = setTimeout(() => {
       if (user === null) {
         // If user is confirmed as unauthenticated, redirect to the landing page
-        router.push("/week-9");
+        router.push("/week-10");
       } else {
         // Authentication has been fully checked, stop the loading state
         setIsCheckingAuth(false);
+        // Load items once the user is authenticated
+        loadItems();
       }
     }, 1000); // Adjust the delay if necessary
 
@@ -45,14 +60,24 @@ export default function Page() {
   // While checking auth status, render nothing to prevent premature redirects
   if (isCheckingAuth) return null;
 
-  const handleAddItem = (name, quantity, categoryKey) => {
+  const handleAddItem = async (name, quantity, categoryKey) => {
     const newItem = {
-      id: items.length + 1,
       name: name,
       quantity: quantity,
       category: categoryDisplayNames[categoryKey] || categoryKey,
     };
-    setItems([...items, newItem]);
+
+    try {
+      if (user?.uid) {
+        // Add the new item to Firestore and get the returned document ID
+        const newItemId = await addItem(user.uid, newItem);
+
+        // Add the new item to the state with the generated ID
+        setItems((prevItems) => [...prevItems, { id: newItemId, ...newItem }]);
+      }
+    } catch (error) {
+      console.error("Error adding item:", error);
+    }
   };
 
   const handleItemSelect = (item) => {
