@@ -73,7 +73,7 @@ export default function Page() {
         const newItemId = await addItem(user.uid, newItem);
 
         // Add the new item to the state with the generated ID
-        setItems((prevItems) => [...prevItems, { id: newItemId, ...newItem }]);
+        // setItems((prevItems) => [...prevItems, { id: newItemId, ...newItem }]);
       }
     } catch (error) {
       console.error("Error adding item:", error);

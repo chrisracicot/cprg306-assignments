@@ -1,7 +1,7 @@
 import { db } from "../_utils/firebase";
 import { collection, getDocs, addDoc, query } from "firebase/firestore";
 
-async function getItems(userId) {
+export async function getItems(userId) {
   try {
     // Reference to the items subcollection for the given userId
     const itemsCollectionRef = collection(db, `users/${userId}/items`);
